@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Viewer - Employee Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="displayReports()">
+  <header>
+    <h1>Report Viewer</h1>
+  </header>
+
+  <main>
+    <section class="report-section">
+      <p>Available Reports:</p>
+      <ul id="reportList" class="report-list"></ul>
+      <div class="report-buttons">
+        <button class="button-secondary" onclick="window.location.href='dashboard.html'">Back</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="footer-text">CS2043 – Deliverable 3 | Frontend by Chao Wang</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
