@@ -5,15 +5,24 @@
   <title>Report Viewer - Employee Management System</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body onload="displayReports()">
+<body onload="initReportViewer()">
   <header>
     <h1>Report Viewer</h1>
   </header>
 
   <main>
     <section class="report-section">
-      <p>Available Reports:</p>
+      <p>Select an employee and choose a report type to download:</p>
+
+      <div class="form-group">
+        <label for="employeeSelect">Select Employee:</label>
+        <select id="employeeSelect">
+          <option value="">-- Choose an Employee --</option>
+        </select>
+      </div>
+
       <ul id="reportList" class="report-list"></ul>
+
       <div class="report-buttons">
         <button class="button-secondary" onclick="window.location.href='dashboard.html'">Back</button>
       </div>
@@ -21,7 +30,7 @@
   </main>
 
   <footer>
-    <p class="footer-text">CS2043 – Deliverable 3 | Frontend by Chao Wang</p>
+    <p class="footer-text">CS2043 – Deliverable 4 | Frontend by Chao Wang</p>
   </footer>
 
   <script src="app.js"></script>
