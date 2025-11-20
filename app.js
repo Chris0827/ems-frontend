@@ -1,4 +1,4 @@
-// --- Utility Functions ---
+// Utility Functions
 
 function generateUniqueId() {
     return 'id-' + Math.random().toString(36).substr(2, 9);
@@ -79,10 +79,10 @@ function initApp() {
 initApp();
 
 
-// --- Authentication Functions ---
+// Authentication Functions
 
 async function apiLogin(username, password) {
-    // Fetches user credentials from local storage. Replace with HTTP request for production.
+    // Gets user credentials from local storage. Replace with HTTP request after u guys finish backend and database.
     const adminUser = JSON.parse(localStorage.getItem("adminUser"));
     const employees = getEmployees();
 
@@ -148,7 +148,7 @@ function loadDashboard() {
     }
 }
 
-// --- Admin Views ---
+// Admin Views
 
 function displayEmployees() {
     const tableBody = document.getElementById("employeeTableBody");
@@ -213,7 +213,7 @@ async function updateLeaveStatus(leaveId, status) {
     }
 }
 
-// --- Employee Views ---
+// Employee Views
 
 function displayMyLeaveHistory(employeeId) {
     const tableBody = document.getElementById("myLeaveTableBody");
@@ -239,7 +239,7 @@ function displayMyLeaveHistory(employeeId) {
     });
 }
 
-// --- Leave Request Form ---
+// Leave Request Form
 
 async function submitLeaveRequest(event) {
     // Asynchronous submission of a new leave request
@@ -265,7 +265,7 @@ async function submitLeaveRequest(event) {
     window.location.href = "dashboard.html";
 }
 
-// --- Employee Form (Add/Edit) ---
+// Employee Form (Add/Edit)
 
 function editEmployee(id) {
     localStorage.setItem("editEmployeeId", id);
@@ -336,7 +336,7 @@ async function saveEmployee(event) {
     window.location.href = "dashboard.html";
 }
 
-// --- Report Viewer ---
+// Report Viewer
 
 function generateReport(type) {
     checkAuth('Admin');
