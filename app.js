@@ -1,8 +1,32 @@
 // ---------------------
-// Employee Management Frontend Logic
+// Login
 // ---------------------
+function initLogin() {
+  if (!localStorage.getItem("adminUser")) {
+    const admin = { username: "admin", password: "1234" };
+    localStorage.setItem("adminUser", JSON.stringify(admin));
+  }
+}
 
-// Initialize sample data if empty
+function handleLogin(event) {
+  event.preventDefault();
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const errorMsg = document.getElementById("loginError");
+  const storedUser = JSON.parse(localStorage.getItem("adminUser"));
+
+  if (storedUser && username === storedUser.username && password === storedUser.password) {
+    localStorage.setItem("loggedIn", "true");
+    errorMsg.textContent = "";
+    window.location.href = "dashboard.html";
+  } else {
+    errorMsg.textContent = "Invalid username or password.";
+  }
+}
+
+// ---------------------
+// Dashboard
+// ---------------------
 function initSampleData() {
   if (!localStorage.getItem("employees")) {
     const sampleEmployees = [
@@ -15,8 +39,11 @@ function initSampleData() {
   }
 }
 
-// Dashboard functions
 function loadDashboard() {
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+    return;
+  }
   initSampleData();
   displayEmployees();
 }
@@ -48,7 +75,9 @@ function editEmployee(index) {
   window.location.href = "employee-form.html";
 }
 
-// Employee form functions
+// ---------------------
+// Employee Form
+// ---------------------
 function loadEmployeeForm() {
   const index = localStorage.getItem("editIndex");
   const form = document.getElementById("employeeForm");
@@ -88,10 +117,13 @@ function saveEmployee(event) {
 }
 
 // ---------------------
-// Report Viewer Functions
+// Report Viewer
 // ---------------------
-
 function initReportViewer() {
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+    return;
+  }
   loadEmployeeOptions();
   displayReports();
 }
