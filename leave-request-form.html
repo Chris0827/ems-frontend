@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leave Request - Employee Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="checkAuth('Employee')">
+    <header>
+        <h1>Submit Leave Request</h1>
+        <button class="button-secondary" onclick="handleLogout()">Logout</button>
+    </header>
+
+    <main class="form-container">
+        <form id="leaveForm" onsubmit="submitLeaveRequest(event)">
+            <div class="form-group">
+                <label for="leaveType">Leave Type:</label>
+                <select id="leaveType" name="leaveType" required>
+                    <option value="Vacation">Vacation</option>
+                    <option value="Sick">Sick Leave</option>
+                    <option value="Personal">Personal Leave</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+            <div class="form-group">
+                <label for="reason">Reason:</label>
+                <textarea id="reason" name="reason" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="button-approve">Submit Request</button>
+            <button type="button" class="button-secondary" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+        </form>
+    </main>
+
+    <footer>
+        <p class="footer-text">Employee Management System</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
