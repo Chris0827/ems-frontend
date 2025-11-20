@@ -2,28 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Employee Management System - Login</title>
+  <title>Login - Employee Management System</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body onload="initLogin()">
   <header>
     <h1>Employee Management System</h1>
   </header>
 
-  <main>
-    <section class="login-section">
-      <h2>Login Page</h2>
-      <div class="login-box">
-        <input id="username" type="text" placeholder="Username" required>
-        <input id="password" type="password" placeholder="Password" required>
-        <button class="button-primary" onclick="handleLogin()">Login</button>
+  <main class="login-container">
+    <form id="loginForm" onsubmit="return handleLogin(event)">
+      <h2>Sign In</h2>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
       </div>
-      <p class="hint">Use <b>admin / 1234</b> or <b>employee / abcd</b> to log in (mock data)</p>
-    </section>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+      </div>
+      <button type="submit" class="button-secondary">Login</button>
+      <p id="loginError" class="error-text"></p>
+    </form>
   </main>
 
   <footer>
-    <p class="footer-text">CS2043 – Deliverable 3 | Frontend by Chao Wang</p>
+    <p class="footer-text">CS2043 – Deliverable 4 | Frontend by Chao Wang</p>
   </footer>
 
   <script src="app.js"></script>
