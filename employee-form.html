@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Employee Form - Employee Management System</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Employee Form - Employee Management System</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body onload="loadEmployeeForm()">
-  <header>
-    <h1>Employee Form</h1>
-  </header>
+    <header>
+        <h1>Employee Form</h1>
+        <button class="button-secondary" onclick="handleLogout()">Logout</button>
+    </header>
 
-  <main class="form-container">
-    <form id="employeeForm" onsubmit="saveEmployee(event)">
-      <div class="form-group">
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required>
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required>
-      </div>
-      <div class="form-group">
-        <label for="salary">Salary:</label>
-        <input type="number" id="salary" name="salary" required>
-      </div>
-      <div class="form-group">
-        <label for="missedDays">Missed Days:</label>
-        <input type="number" id="missedDays" name="missedDays">
-      </div>
-      <button type="submit" class="button-secondary">Save</button>
-      <button type="button" class="button-secondary" onclick="window.location.href='dashboard.html'">Cancel</button>
-    </form>
-  </main>
+    <main class="form-container">
+        <form id="employeeForm" onsubmit="saveEmployee(event)">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email (Login Username):</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="text" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="salary">Salary:</label>
+                <input type="number" id="salary" name="salary" required>
+            </div>
+            <div class="form-group">
+                <label for="missedDays">Missed Days:</label>
+                <input type="number" id="missedDays" name="missedDays">
+            </div>
+            <button type="submit" class="button-primary">Save Employee</button>
+            <button type="button" class="button-secondary" onclick="window.location.href='dashboard.html'">Cancel</button>
+        </form>
+    </main>
 
-  <footer>
-    <p class="footer-text">Employee Management System</p>
-  </footer>
+    <footer>
+        <p class="footer-text">Employee Management System</p>
+    </footer>
 
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
