@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Report Viewer - Employee Management System</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>Report Viewer - Employee Management System</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body onload="initReportViewer()">
-  <header>
-    <h1>Report Viewer</h1>
-  </header>
+<body onload="checkAuth('Admin')">
+    <header>
+        <h1>Report Downloader</h1>
+        <button class="button-secondary" onclick="handleLogout()">Logout</button>
+    </header>
 
-  <main>
-    <section class="report-section">
-      <p>Select an employee and choose a report type to download:</p>
+    <main>
+        <section class="report-section">
+            <p>Select a report to generate and download the CSV file:</p>
 
-      <div class="form-group">
-        <label for="employeeSelect">Select Employee:</label>
-        <select id="employeeSelect">
-          <option value="">-- Choose an Employee --</option>
-        </select>
-      </div>
+            <ul id="reportList" class="report-list">
+                <li><a href="#" onclick="generateReport('EmployeeList')">Employee List Report ⬇️</a></li>
+                <li><a href="#" onclick="generateReport('LeaveSummary')">All Leave Requests Summary ⬇️</a></li>
+                <li><a href="#" onclick="generateReport('PendingLeaves')">Pending Leave Requests ⬇️</a></li>
+            </ul>
 
-      <ul id="reportList" class="report-list"></ul>
+            <div class="report-buttons">
+                <button class="button-secondary" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+            </div>
+        </section>
+    </main>
 
-      <div class="report-buttons">
-        <button class="button-secondary" onclick="window.location.href='dashboard.html'">Back</button>
-      </div>
-    </section>
-  </main>
+    <footer>
+        <p class="footer-text">Employee Management System</p>
+    </footer>
 
-  <footer>
-    <p class="footer-text">Employee Management System</p>
-  </footer>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
