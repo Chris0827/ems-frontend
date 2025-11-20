@@ -75,19 +75,14 @@ function initApp() {
         setLeaves(initialLeaves);
     }
 }
-// Run initialization immediately to ensure data exists for login
+// Initialize application data structure
 initApp();
 
 
-// --- Login / Logout (Simulated API) ---
+// --- Authentication Functions ---
 
-/**
- * Simulates an asynchronous API login call.
- * This function should be replaced with actual fetch/axios calls for backend integration.
- */
 async function apiLogin(username, password) {
-    await new Promise(resolve => setTimeout(resolve, 500)); 
-
+    // Fetches user credentials from local storage. Replace with HTTP request for production.
     const adminUser = JSON.parse(localStorage.getItem("adminUser"));
     const employees = getEmployees();
 
@@ -205,12 +200,8 @@ function displayLeaveRequestsAdmin() {
     });
 }
 
-/**
- * Simulates an asynchronous API call to update leave status.
- */
 async function updateLeaveStatus(leaveId, status) {
-    await new Promise(resolve => setTimeout(resolve, 300));
-
+    // Asynchronous update of leave status
     let leaves = getLeaves();
     const index = leaves.findIndex(l => l.id === leaveId);
 
@@ -250,10 +241,8 @@ function displayMyLeaveHistory(employeeId) {
 
 // --- Leave Request Form ---
 
-/**
- * Simulates an asynchronous API call to submit a new leave request.
- */
 async function submitLeaveRequest(event) {
+    // Asynchronous submission of a new leave request
     event.preventDefault();
     const form = event.target;
     const user = getCurrentUser();
@@ -268,8 +257,6 @@ async function submitLeaveRequest(event) {
         status: 'Pending'
     };
 
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
     let leaves = getLeaves();
     leaves.push({ id: generateUniqueId(), ...newRequest });
     setLeaves(leaves);
@@ -313,10 +300,8 @@ function loadEmployeeForm() {
     }
 }
 
-/**
- * Simulates an asynchronous API call to save or update employee data.
- */
 async function saveEmployee(event) {
+    // Asynchronous save/update of employee data
     event.preventDefault();
     const form = event.target;
     let employees = getEmployees();
@@ -333,8 +318,6 @@ async function saveEmployee(event) {
     };
 
     if (id) {
-        await new Promise(resolve => setTimeout(resolve, 300));
-
         const index = employees.findIndex(e => e.id === id);
         if (index !== -1) {
             employees[index] = { ...employees[index], ...employeeData };
@@ -345,8 +328,6 @@ async function saveEmployee(event) {
             alert("Error: An employee with this email already exists.");
             return;
         }
-
-        await new Promise(resolve => setTimeout(resolve, 300));
         
         employees.push({ id: generateUniqueId(), ...employeeData });
     }
