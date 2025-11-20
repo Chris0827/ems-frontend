@@ -1,6 +1,3 @@
-// Note: This test file assumes the existence of the functions from app.js (e.g., getEmployees, setEmployees, initApp, apiLogin, etc.)
-// If running this file standalone, you must include app.js first.
-
 // --- Helper Functions for Testing ---
 
 function resetLocalStorage() {
@@ -18,7 +15,7 @@ function assert(condition, message) {
     }
 }
 
-// --- Unit Tests ---
+// Unit Tests
 
 function test1_InitialDataSetup() {
     resetLocalStorage();
@@ -36,7 +33,7 @@ async function test2_SuccessfulLogin() {
     let result = await apiLogin("admin@company.com", "admin");
     assert(result.success && result.user.role === 'Admin', "T2: Admin login successful.");
 
-    // Test Employee Login (using Alice)
+    // Test Employee Login (use Alice)
     result = await apiLogin("alice@company.com", "employee");
     assert(result.success && result.user.role === 'Employee', "T2: Employee login successful (Alice).");
     
@@ -86,7 +83,7 @@ function test4_UpdateEmployeeSalary() {
     assert(updatedEmployee.salary === newSalary, "T4: Employee salary updated successfully.");
 }
 
-// --- Execution ---
+// Execution
 
 console.log("--- Running Unit Tests for Employee Management System ---");
 test1_InitialDataSetup();
