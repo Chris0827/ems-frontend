@@ -67,21 +67,26 @@ function initApp() {
     }
     
     if (!leavesExist) {
+        const currentEmployees = getEmployees(); 
         const initialLeaves = [
-            { id: generateUniqueId(), employeeId: getEmployees()[0].id, employeeName: "Alice Wang", type: "Vacation", startDate: "2025-12-01", endDate: "2025-12-05", reason: "Annual leave.", status: "Pending" },
-            { id: generateUniqueId(), employeeId: getEmployees()[1].id, employeeName: "Bob Smith", type: "Sick", startDate: "2025-11-25", endDate: "2025-11-25", reason: "Flu.", status: "Approved" },
+            { id: generateUniqueId(), employeeId: currentEmployees[0].id, employeeName: "Alice Wang", type: "Vacation", startDate: "2025-12-01", endDate: "2025-12-05", reason: "Annual leave.", status: "Pending" },
+            { id: generateUniqueId(), employeeId: currentEmployees[1].id, employeeName: "Bob Smith", type: "Sick", startDate: "2025-11-25", endDate: "2025-11-25", reason: "Flu.", status: "Approved" },
         ];
         setLeaves(initialLeaves);
     }
 }
+// Run initialization immediately to ensure data exists for login
+initApp();
 
-// --- Login / Logout ---
 
-function handleLogin(event) {
-    event.preventDefault();
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const errorMsg = document.getElementById("loginError");
+// --- Login / Logout (Simulated API) ---
+
+/**
+ * Simulates an asynchronous API login call.
+ * This function should be replaced with actual fetch/axios calls for backend integration.
+ */
+async function apiLogin(username, password) {
+    await new Promise(resolve => setTimeout(resolve, 500)); 
 
     const adminUser = JSON.parse(localStorage.getItem("adminUser"));
     const employees = getEmployees();
@@ -95,11 +100,28 @@ function handleLogin(event) {
     }
 
     if (user) {
-        setCurrentUser(user);
+        return { success: true, user: user };
+    } else {
+        return { success: false, message: "Invalid email or password." };
+    }
+}
+
+
+async function handleLogin(event) {
+    event.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorMsg = document.getElementById("loginError");
+    errorMsg.textContent = "Logging in..."; 
+
+    const result = await apiLogin(username, password);
+
+    if (result.success) {
+        setCurrentUser(result.user);
         errorMsg.textContent = "";
         window.location.href = "dashboard.html";
     } else {
-        errorMsg.textContent = "Invalid email or password.";
+        errorMsg.textContent = result.message;
     }
 }
 
@@ -183,7 +205,12 @@ function displayLeaveRequestsAdmin() {
     });
 }
 
-function updateLeaveStatus(leaveId, status) {
+/**
+ * Simulates an asynchronous API call to update leave status.
+ */
+async function updateLeaveStatus(leaveId, status) {
+    await new Promise(resolve => setTimeout(resolve, 300));
+
     let leaves = getLeaves();
     const index = leaves.findIndex(l => l.id === leaveId);
 
@@ -223,13 +250,15 @@ function displayMyLeaveHistory(employeeId) {
 
 // --- Leave Request Form ---
 
-function submitLeaveRequest(event) {
+/**
+ * Simulates an asynchronous API call to submit a new leave request.
+ */
+async function submitLeaveRequest(event) {
     event.preventDefault();
     const form = event.target;
     const user = getCurrentUser();
 
     const newRequest = {
-        id: generateUniqueId(),
         employeeId: user.id,
         employeeName: `${user.firstName} ${user.lastName}`,
         type: form.leaveType.value,
@@ -239,8 +268,10 @@ function submitLeaveRequest(event) {
         status: 'Pending'
     };
 
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
     let leaves = getLeaves();
-    leaves.push(newRequest);
+    leaves.push({ id: generateUniqueId(), ...newRequest });
     setLeaves(leaves);
     
     alert("Leave request submitted successfully. Waiting for admin approval.");
@@ -260,7 +291,8 @@ function loadEmployeeForm() {
     const form = document.getElementById("employeeForm");
     
     if (!id) {
-        form.querySelector('h1').textContent = "Add New Employee";
+        document.querySelector('h1').textContent = "Add New Employee";
+        form.querySelector('button[type="submit"]').textContent = "Add Employee";
         return; 
     }
 
@@ -275,12 +307,16 @@ function loadEmployeeForm() {
         form.password.value = emp.password;
         form.salary.value = emp.salary;
         form.missedDays.value = emp.missedDays || 0;
+        form.querySelector('button[type="submit"]').textContent = "Save Changes";
     } else {
         localStorage.removeItem("editEmployeeId");
     }
 }
 
-function saveEmployee(event) {
+/**
+ * Simulates an asynchronous API call to save or update employee data.
+ */
+async function saveEmployee(event) {
     event.preventDefault();
     const form = event.target;
     let employees = getEmployees();
@@ -297,6 +333,8 @@ function saveEmployee(event) {
     };
 
     if (id) {
+        await new Promise(resolve => setTimeout(resolve, 300));
+
         const index = employees.findIndex(e => e.id === id);
         if (index !== -1) {
             employees[index] = { ...employees[index], ...employeeData };
@@ -307,6 +345,9 @@ function saveEmployee(event) {
             alert("Error: An employee with this email already exists.");
             return;
         }
+
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
         employees.push({ id: generateUniqueId(), ...employeeData });
     }
 
@@ -323,7 +364,7 @@ function generateReport(type) {
     let csvContent = "data:text/csv;charset=utf-8,";
     let fileName = "";
     let data = [];
-
+    
     switch (type) {
         case "EmployeeList":
             fileName = "Employee_List.csv";
@@ -345,7 +386,7 @@ function generateReport(type) {
                 Type: l.type,
                 StartDate: l.startDate,
                 EndDate: l.endDate,
-                Reason: l.reason.replace(/,/g, ';'), // Replace commas in reason to avoid CSV issues
+                Reason: l.reason.replace(/,/g, ';'), 
                 Status: l.status
             }));
             break;
